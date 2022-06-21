@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Customer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-gradle-demo</a> &gt; <a href="index.source.html" class="el_package">com.example.springbootgradledemo</a> &gt; <span class="el_source">Customer.java</span></div><h1>Customer.java</h1><pre class="source lang-java linenums">package com.example.springbootgradledemo;
+
+
+public class Customer {
+    private String name;
+
+    @Override
+    public String toString() {
+<span class="nc" id="L9">        return &quot;Customer{&quot; +</span>
+                &quot;name='&quot; + name + '\'' +
+                &quot;, id='&quot; + id + '\'' +
+                &quot;, country_of_birth='&quot; + country_of_birth + '\'' +
+                &quot;, country_of_residence='&quot; + country_of_residence + '\'' +
+                &quot;, segment='&quot; + segment + '\'' +
+                '}';
+    }
+
+    private String id;
+    private String country_of_birth;
+    private String country_of_residence;
+    private String segment;
+
+<span class="nc" id="L23">    public Customer(String name, String id, String country_of_birth, String country_of_residence, String segment) {</span>
+<span class="nc" id="L24">        this.name = name;</span>
+<span class="nc" id="L25">        this.id = id;</span>
+<span class="nc" id="L26">        this.country_of_birth = country_of_birth;</span>
+<span class="nc" id="L27">        this.country_of_residence = country_of_residence;</span>
+<span class="nc" id="L28">        this.segment = segment;</span>
+<span class="nc" id="L29">    }</span>
+
+    public String getName() {
+<span class="nc" id="L32">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L36">        this.name = name;</span>
+<span class="nc" id="L37">    }</span>
+
+    public String getId() {
+<span class="nc" id="L40">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="nc" id="L44">        this.id = id;</span>
+<span class="nc" id="L45">    }</span>
+
+    public String getCountry_of_birth() {
+<span class="nc" id="L48">        return country_of_birth;</span>
+    }
+
+    public void setCountry_of_birth(String country_of_birth) {
+<span class="nc" id="L52">        this.country_of_birth = country_of_birth;</span>
+<span class="nc" id="L53">    }</span>
+
+    public String getCountry_of_residence() {
+<span class="nc" id="L56">        return country_of_residence;</span>
+    }
+
+    public void setCountry_of_residence(String country_of_residence) {
+<span class="nc" id="L60">        this.country_of_residence = country_of_residence;</span>
+<span class="nc" id="L61">    }</span>
+
+    public String getSegment() {
+<span class="nc" id="L64">        return segment;</span>
+    }
+
+    public void setSegment(String segment) {
+<span class="nc" id="L68">        this.segment = segment;</span>
+<span class="nc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
