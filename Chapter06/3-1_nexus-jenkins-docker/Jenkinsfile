@@ -1,6 +1,6 @@
 def mainDir="Chapter06/3-1_nexus-jenkins-docker"
 def region="ap-northeast-2"
-def nexusUrl="3.37.38.155:5000"
+def nexusUrl="3.39.244.254:5000"
 def repository="test"
 def deployHost="<Deploy VM Private IP>"
 def tagName="nexus"
