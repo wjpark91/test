@@ -1,8 +1,8 @@
 def mainDir="Chapter06/3-1_nexus-jenkins-docker"
 def region="ap-northeast-2"
-def nexusUrl="3.39.244.254:5000"
+def nexusUrl="3.36.43.70:5000"
 def repository="test"
-def deployHost="3.36.107.30"
+def deployHost="3.35.199.100"
 def tagName="nexus"
 
 pipeline {
