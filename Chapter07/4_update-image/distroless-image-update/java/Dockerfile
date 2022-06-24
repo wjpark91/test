@@ -1,4 +1,4 @@
-FROM <AWS ECR URL>/<AWS ECR Repository Name>:update-base-image AS build-env
+FROM 504441673365.dkr.ecr.ap-northeast-2.amazonaws.com/pwj-test:update-base-image AS build-env
 COPY . /app/examples
 WORKDIR /app
 RUN javac examples/*.java
