@@ -1,20 +1,20 @@
 // Common
 def mainDir="Chapter09/mini-project"
-def region="<AWS Region>"
-def deployHost="<Deploy VM Private IP>"
+def region="ap-northeast-2"
+def deployHost="10.0.22.81"
 
 // Repository Info
-def repository="<Image Repository Name>"
-def baseImageTag="update-base-image"
-def appImageTag="update-app-image"
+def repository="test"
+def baseImageTag="base-image"
+def appImageTag="app-image"
 
 // Nexus
-def nexusUrl="<Nexus Private IP>:5000"
-def nexusProxyUrl="<Nexus Private IP>:5001"
+def nexusUrl="10.0.3.112:5000"
+def nexusProxyUrl="10.0.3.112:5001"
 
 // AWS ECR
 def ecrLoginHelper="docker-credential-ecr-login"
-def ecrUrl="<AWS ECR URL>"
+def ecrUrl="504441673365.dkr.ecr.ap-northeast-2.amazonaws.com"
 
 
 pipeline {
@@ -30,10 +30,10 @@ pipeline {
             steps {
                 sh """
                 cd ${mainDir}/base-image
-                echo '<Nexus repo PW>' | docker login -u '<Nexus repo ID>' --password-stdin ${nexusUrl}
-                echo '<Nexus repo PW>' | docker login -u '<Nexus repo ID>' --password-stdin ${nexusProxyUrl}
-                docker build -t ${nexusUrl}/${repository}:${baseImageTag} .
-                docker push ${nexusUrl}/${repository}:${baseImageTag}
+                echo 'test' | docker login -u 'test' --password-stdin ${nexusUrl}
+                echo 'test' | docker login -u 'test' --password-stdin ${nexusProxyUrl}
+                docker build -t ${nexusUrl}/nexus-custom-repository:${baseImageTag} .
+                docker push ${nexusUrl}/nexus-custom-repository:${baseImageTag}
                 """
             }
         }           
@@ -59,7 +59,7 @@ pipeline {
             steps {
                 sh """
                     cd ${mainDir}
-                    ./gradlew jib -Djib.to.image=${nexusUrl}/${repository}:${appImageTag} -DsendCredentialsOverHttp=true -Djib.console='plain'
+                    ./gradlew jib -Djib.to.image=${nexusUrl}/nexus-custom-repository:${appImageTag} -DsendCredentialsOverHttp=true -Djib.console='plain'
                 """
             }
         }
@@ -72,7 +72,7 @@ pipeline {
                         chmod +x ${ecrLoginHelper}
                         mv ${ecrLoginHelper} /usr/local/bin/
                         cd ${mainDir}
-                        ./gradlew jib -Djib.to.image=${ecrUrl}/${repository}:${appImageTag} -Djib.console='plain'
+                        ./gradlew jib -Djib.to.image=${ecrUrl}/pwj-test:${appImageTag} -Djib.console='plain'
                     """
                 }
             }
@@ -86,13 +86,13 @@ pipeline {
                         sh """
                             apt update
                             apt install -y wget
-                            docker pull ${nexusUrl}/${repository}:${appImageTag}
+                            docker pull ${nexusUrl}/nexus-custom-repository:${appImageTag}
                             wget https://github.com/arminc/clair-scanner/releases/download/v12/clair-scanner_linux_amd64
                             chmod +x clair-scanner_linux_amd64
                             mv clair-scanner_linux_amd64 /usr/local/bin/clair-scanner
                         """
                         sh "clair-scanner --ip ${jenkins_ip} --clair='http://${clair_ip}:6060' --log='clair.log' \
-                                --report='report.txt' ${nexusUrl}/${repository}:${appImageTag}"
+                                --report='report.txt' ${nexusUrl}/nexus-custom-repository:${appImageTag}"
                     } catch (err) {
                         echo err.getMessage()
                     }
@@ -105,7 +105,7 @@ pipeline {
                 sshagent(credentials : ["deploy-key"]) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@${deployHost} \
                       'echo \"<Nexus repo PW>\" | docker login -u <Nexus repo ID> --password-stdin ${nexusUrl}; \
-                      docker run -d -p 81:8080 -t ${nexusUrl}/${repository}:${appImageTag};'"
+                      docker run -d -p 81:8080 -t ${nexusUrl}/nexus-custom-repository:${appImageTag};'"
                 }
             }
         }
@@ -113,8 +113,8 @@ pipeline {
             steps{
                 sshagent(credentials : ["deploy-key"]) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@${deployHost} \
-                     'aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrUrl}/${repository}; \
-                      docker run -d -p 82:8080 -t ${ecrUrl}/${repository}:${appImageTag};'"
+                     'aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrUrl}/pwj-test; \
+                      docker run -d -p 82:8080 -t ${ecrUrl}/pwj-test:${appImageTag};'"
                 }
             }
         }
