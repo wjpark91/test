@@ -104,7 +104,7 @@ pipeline {
             steps{
                 sshagent(credentials : ["deploy-key"]) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@${deployHost} \
-                      'echo \"<Nexus repo PW>\" | docker login -u <Nexus repo ID> --password-stdin ${nexusUrl}; \
+                      'echo \"test\" | docker login -u test --password-stdin ${nexusUrl}; \
                       docker run -d -p 81:8080 -t ${nexusUrl}/nexus-custom-repository:${appImageTag};'"
                 }
             }
