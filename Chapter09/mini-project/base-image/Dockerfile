@@ -1,4 +1,4 @@
-FROM <Nexus Private IP>:5001/ubuntu:21.04
+FROM ubuntu:18.04
 CMD ["bash"]
 RUN /bin/sh -c set -eux; 	apt-get update; 	apt-get install -y --no-install-recommends 		ca-certificates p11-kit 	; 	rm -rf /var/lib/apt/lists/*
 ENV JAVA_HOME=/usr/local/openjdk-11

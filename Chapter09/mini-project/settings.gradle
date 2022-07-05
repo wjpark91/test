@@ -1,7 +1,7 @@
 pluginManagement {
   repositories {
     maven {
-        url "http://<Nexus Private IP>:8081/repository/<nexus artifact repository Name>"
+        url "http://10.0.3.112:8081/repository/nexus-artifact-repository"
         allowInsecureProtocol true
     }
   }
