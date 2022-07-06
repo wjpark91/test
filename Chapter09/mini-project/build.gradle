@@ -71,7 +71,7 @@ tasks['sonarqube'].dependsOn test
 
 jib {
   from {
-    image = "10.0.3.112:5000/test:base-image"
+    image = "10.0.3.112:5000/nexus-custom-repository:base-image"
   }
   allowInsecureRegistries = true
 	container {
