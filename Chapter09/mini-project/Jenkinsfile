@@ -9,8 +9,8 @@ def baseImageTag="base-image"
 def appImageTag="app-image"
 
 // Nexus
-def nexusUrl="10.0.3.112:5000"
-def nexusProxyUrl="10.0.3.112:5001"
+def nexusUrl="10.0.9.69:5000"
+def nexusProxyUrl="10.0.9.69:5001"
 
 // AWS ECR
 def ecrLoginHelper="docker-credential-ecr-login"
